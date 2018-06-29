@@ -13,12 +13,15 @@ def runCrawler(url):
     # print(soup.prettify());
 
     outputText = "";
+    ignoredBuzzWords = ["promo-panel__inner__body"];
 
     all_p_tags = list(soup.find_all('p'));
     # print(all_p_tags[2].prettify());
     for p_tag in all_p_tags:
         if(p_tag.has_attr('class')):
             list_of_class = p_tag['class'];
+            for buzzWord in ignoredBuzzWords:
+                if(buzzWord in list_of_class): continue;
             if("promo-panel__inner__body" in list_of_class): continue;
         raw_text = p_tag.text;
         if("Sign in" in raw_text): continue;
@@ -26,12 +29,7 @@ def runCrawler(url):
         outputText +="\n";
     
     
-    
-    
-    
-    
-    
-    
+
     return outputText;
 
 

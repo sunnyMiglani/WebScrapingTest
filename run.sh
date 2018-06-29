@@ -1,2 +1,1 @@
-python scrape.py > text.txt
-nano text.txt
+python scrape.py > output.txt
