@@ -28,7 +28,7 @@ def runCrawler(url):
             for buzzWord in ignoredBuzzWords:
                 if(buzzWord in list_of_class): continue;
         raw_text = p_tag.text;
-        if("Sign in" in raw_text): continue;
+        if("Sign in" in raw_text or "team of exam" in raw_text): continue;
         outputText += p_tag.text;
         outputText +="\n";
     
