@@ -2,9 +2,9 @@ from bs4 import BeautifulSoup;
 import requests;
 
 
-def runCrawler():
+def runCrawler(url):
     # Returns the webpage in the same format a browser would receive it. Sends a GET request.
-    page = requests.get("https://www.bbc.com/education/guides/zt8qrdm/revision/1");
+    page = requests.get(url);
 
     # Create a soup object that parses the html.
     # This creates a structure to the html page that can be parsed and traversed via soup
@@ -12,6 +12,7 @@ def runCrawler():
     soup = BeautifulSoup(page.content, 'html.parser');
     # print(soup.prettify());
 
+    outputText = "";
 
     all_p_tags = list(soup.find_all('p'));
     # print(all_p_tags[2].prettify());
@@ -21,10 +22,28 @@ def runCrawler():
             if("promo-panel__inner__body" in list_of_class): continue;
         raw_text = p_tag.text;
         if("Sign in" in raw_text): continue;
-        print(p_tag.text);
-        # print("\n");
-        # print("\n \n --------------- \n \n");
-        
+        outputText += p_tag.text;
+        outputText +="\n";
+    
+    
+    
+    
+    
+    
+    
+    
+    return outputText;
 
-runCrawler();
 
+
+
+def goThroughListOfURLs():
+    f = open("url.txt", "r") #opens file with name of "test.txt"
+    for line in f:
+        if(line == "" or line == " " or line == "\n"): continue; ## for extra newline characters.
+        if(line[-1] == "\n"):
+            line = line[:-1]; # This is basically removing the newline at the end of the line! 
+        thisOutput = runCrawler(line);
+        print(thisOutput);
+    
+goThroughListOfURLs();
