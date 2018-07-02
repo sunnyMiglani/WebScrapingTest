@@ -15,18 +15,18 @@ def runCrawler(url, indexOfURL):
     # This creates a structure to the html page that can be parsed and traversed via soup
     # allowing for easy filters and searches.
     soup = BeautifulSoup(page.content, 'html.parser');
-    # print(soup.prettify());
 
     outputText = "";
-    ignoredBuzzWords = ["promo-panel__inner__body"];
+    ignoredBuzzWords = ["promo-panel__inner__body", "context-panel__description"];
 
+    ## Get all the paragraph tags on the website and take information that way.
     all_p_tags = list(soup.find_all('p'));
-    # print(all_p_tags[2].prettify());
     for p_tag in all_p_tags:
         if(p_tag.has_attr('class')):
             list_of_class = p_tag['class'];
             for buzzWord in ignoredBuzzWords:
                 if(buzzWord in list_of_class): continue;
+        print("-- This P_tag : {0} ---".format(p_tag));
         raw_text = p_tag.text;
         if("Sign in" in raw_text or "team of exam" in raw_text): continue; # TODO: Change to a list that's easily accessible.
         outputText += p_tag.text;
@@ -34,7 +34,7 @@ def runCrawler(url, indexOfURL):
     
 
     
-    # Grabbing other URLs from the page.
+    ## Grabbing other URLs from the page to related topics / other guides.
     all_a_links = soup.findAll("a", {"class": "other-guides__link"});
     for a_link in all_a_links:
         link = a_link['href'];
@@ -45,7 +45,7 @@ def runCrawler(url, indexOfURL):
         else: continue;
     
 
-    ## Getting sublinks from pages!
+    ## Getting sublinks from pages! These are the 1,2,3,4... pages it allows.
     my_list_of_sub_links = []
     all_sub_a_links = soup.findAll("a", {"class" :"pagination__item__inner"});
     for sub_link in all_sub_a_links:
@@ -69,11 +69,11 @@ def runCrawler(url, indexOfURL):
 def goThroughListOfURLs():
     ## global list of urls ## 
     global listOfURLs;
+
     index = 0;
     with open("url.txt", "r") as f:
         listOfURLs = f.read().splitlines();
     for line in listOfURLs:
-        # print(line);
         if(line == "" or line == " " or line == "\n"): continue; ## for extra newline characters.
         if(line[-1] == "\n"):
             line = line[:-1]; # This is basically removing the newline at the end of the line! 
@@ -81,6 +81,7 @@ def goThroughListOfURLs():
         thisOutput = runCrawler(line, index);
         print(thisOutput);
 
+    ## Rewriting list of urls to keep a document of all pages scraped!
     with open("url.txt", "w+") as f:
         for url in listOfURLs:
             f.write("%s\n" % url);

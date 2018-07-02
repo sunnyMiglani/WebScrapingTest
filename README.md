@@ -12,6 +12,23 @@ This example is focused on **BBC Bitesize** as the project is needed for UoB Bri
 Key tip to follow is if you'd like to add any buzzwords to the list of ignored buzzwords that's inline in the code as a list.
 For example, the signup class is ignored on the pages in on the bbc bitesize page!
 
+## Flow Explained:
+
+The program will run through it's current  `url.txt` file and use that as a starting point for any scraping.
+
+It then grabs all the `p` tags associated with the page, ignoring certain classes (that are specified in the sourcecode). 
+Once these tags have been grabbed, it saves all the associated text in an `outputText` variable that's related to that page.
+
+
+The next step is to grab related links (to proceed onto related topics): To do this is quite simple, looking at the webpage we find the div `other-guides__link` and use that as the source of the other guides related to it.  From there we grab any `a href` links and save the values into a list **only if it's not already present**. 
+
+The third step is slightly more complicated: This uses the `pagination__item__inner` class of links, which are associated with the in depth pages of the url, such as `/revision/../1`, `/revision/../2` .. etc. These pages need to remain in order under the main page `revision/../` to keep the topics under association.
+
+To keep this order, a sublist is used and the smaller links of `/revision/../` are kept right after the current "mainlink". This way we keep the structure.
+
+ 
+
+
 # Documentation:
 
 1. Main referral link to [Webscraping with python is here](http://cfss.uchicago.edu/fall2016/webdata_scrape_py.html)
