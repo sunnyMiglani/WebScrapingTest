@@ -33,7 +33,6 @@ def runCrawler(url, indexOfURL):
         outputText +="\n";
     
 
-    print ("--- p_tags done! ---");
     
     # Grabbing other URLs from the page.
     all_a_links = soup.findAll("a", {"class": "other-guides__link"});
@@ -45,7 +44,6 @@ def runCrawler(url, indexOfURL):
             print("Just appened link : {0}".format(link));
         else: continue;
     
-    print ("--- a_tags for webpages done! ---");
 
     ## Getting sublinks from pages!
     my_list_of_sub_links = []
@@ -56,13 +54,12 @@ def runCrawler(url, indexOfURL):
         if(this_link not in my_list_of_sub_links):
             my_list_of_sub_links.append(this_link);
         else: continue;
-    next_ind = index;
+    next_ind = indexOfURL;
     for sub_link in my_list_of_sub_links:
-        print("Sub_link being added : {0}".format(sub_link));
-        listOfURLs.insert(next_ind,sub_link);
-        next_ind +=1;
+        if(sub_link not in listOfURLs):
+            listOfURLs.insert(next_ind,sub_link);
+            next_ind +=1;
     
-    print ("--- a_tags for subpages done! ---");
 
 
     return outputText;
