@@ -8,8 +8,8 @@ def runCrawler(url, indexOfURL):
     global listOfURLs;
     
     # Returns the webpage in the same format a browser would receive it. Sends a GET request.
-    page = requests.get(url);
     print("Main url : " + str(url));
+    page = requests.get(url);
 
     # Create a soup object that parses the html.
     # This creates a structure to the html page that can be parsed and traversed via soup
@@ -32,6 +32,8 @@ def runCrawler(url, indexOfURL):
         outputText += p_tag.text;
         outputText +="\n";
     
+
+    print ("--- p_tags done! ---");
     
     # Grabbing other URLs from the page.
     all_a_links = soup.findAll("a", {"class": "other-guides__link"});
@@ -43,10 +45,25 @@ def runCrawler(url, indexOfURL):
             print("Just appened link : {0}".format(link));
         else: continue;
     
+    print ("--- a_tags for webpages done! ---");
+
+    ## Getting sublinks from pages!
+    my_list_of_sub_links = []
     all_sub_a_links = soup.findAll("a", {"class" :"pagination__item__inner"});
-    for a_sub_link in all_sub_a_links:
-        this_link = a_sub_link["href"];
-        print(this_link);
+    for sub_link in all_sub_a_links:
+        this_link = sub_link["href"];
+        this_link = "https://www.bbc.com" + this_link;
+        if(this_link not in my_list_of_sub_links):
+            my_list_of_sub_links.append(this_link);
+        else: continue;
+    next_ind = index;
+    for sub_link in my_list_of_sub_links:
+        print("Sub_link being added : {0}".format(sub_link));
+        listOfURLs.insert(next_ind,sub_link);
+        next_ind +=1;
+    
+    print ("--- a_tags for subpages done! ---");
+
 
     return outputText;
 
