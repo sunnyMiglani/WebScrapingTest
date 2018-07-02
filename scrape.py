@@ -3,7 +3,7 @@ import requests;
 
 listOfURLs = []
 
-def runCrawler(url):
+def runCrawler(url, indexOfURL):
     ## global variables reference ##
     global listOfURLs;
     
@@ -28,7 +28,7 @@ def runCrawler(url):
             for buzzWord in ignoredBuzzWords:
                 if(buzzWord in list_of_class): continue;
         raw_text = p_tag.text;
-        if("Sign in" in raw_text or "team of exam" in raw_text): continue;
+        if("Sign in" in raw_text or "team of exam" in raw_text): continue; # TODO: Change to a list that's easily accessible.
         outputText += p_tag.text;
         outputText +="\n";
     
@@ -42,16 +42,20 @@ def runCrawler(url):
             listOfURLs.append(link);
             print("Just appened link : {0}".format(link));
         else: continue;
+    
+    all_sub_a_links = soup.findAll("a", {"class" :"pagination__item__inner"});
+    for a_sub_link in all_sub_a_links:
+        this_link = a_sub_link["href"];
+        print(this_link);
 
     return outputText;
-
 
 
 
 def goThroughListOfURLs():
     ## global list of urls ## 
     global listOfURLs;
-
+    index = 0;
     with open("url.txt", "r") as f:
         listOfURLs = f.read().splitlines();
     for line in listOfURLs:
@@ -59,7 +63,8 @@ def goThroughListOfURLs():
         if(line == "" or line == " " or line == "\n"): continue; ## for extra newline characters.
         if(line[-1] == "\n"):
             line = line[:-1]; # This is basically removing the newline at the end of the line! 
-        thisOutput = runCrawler(line);
+        index +=1;
+        thisOutput = runCrawler(line, index);
         print(thisOutput);
 
     with open("url.txt", "w+") as f:
