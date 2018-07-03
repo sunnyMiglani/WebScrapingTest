@@ -17,16 +17,23 @@ def runCrawler(url, indexOfURL):
     soup = BeautifulSoup(page.content, 'html.parser');
 
     outputText = "";
-    ignoredBuzzWords = ["promo-panel__inner__body", "context-panel__description"];
+    ignoredBuzzWords = ["promo-panel__inner__body", "context-panel__description", "context-panel__description"];
 
     ## Get all the paragraph tags on the website and take information that way.
-    all_p_tags = list(soup.find_all('p'));
+    all_p_tags = list(soup.find_all('p')); ## <<------- Meant to skip this for loop!
     for p_tag in all_p_tags:
+        shouldIgnore = False;
         if(p_tag.has_attr('class')):
             list_of_class = p_tag['class'];
-            for buzzWord in ignoredBuzzWords:
-                if(buzzWord in list_of_class): continue;
-        print("-- This P_tag : {0} ---".format(p_tag));
+            # print("List of classes : {0}".format(list_of_class));
+            for buzzWord in ignoredBuzzWords: ## <<----- Skips this for loop!
+                # print("Buzzword : {0}".format(buzzWord));
+                if(buzzWord in list_of_class):
+                    # print("----- Buzzword Found! : {0} ----".format(buzzWord));
+                    shouldIgnore = True;
+                    continue; ## <<---- This skip / continue!
+        if(shouldIgnore): continue;
+        # print("-- This P_tag : {0} ---".format(p_tag));
         raw_text = p_tag.text;
         if("Sign in" in raw_text or "team of exam" in raw_text): continue; # TODO: Change to a list that's easily accessible.
         outputText += p_tag.text;
