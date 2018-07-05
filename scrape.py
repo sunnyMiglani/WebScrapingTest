@@ -17,7 +17,7 @@ def runCrawler(url, indexOfURL):
     soup = BeautifulSoup(page.content, 'html.parser');
 
     outputText = "";
-    ignoredBuzzWords = ["promo-panel__inner__body", "context-panel__description", "context-panel__description"];
+    ignoredBuzzWords = ["promo-panel__inner__body", "context-panel__description", "context-panel__description", "highlighted"];
 
     ## Get all the paragraph tags on the website and take information that way.
     all_p_tags = list(soup.find_all('p')); ## <<------- Meant to skip this for loop!
