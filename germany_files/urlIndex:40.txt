@@ -1,0 +1,11 @@
+
+Consider using a PEEL structure for your paragraphs:
+P = Point
+The first sentence of each paragraph should clearly state the point of the paragraph which in turn should be directly connected to the overall theme of the question. Be precise and clear about what you will be discussing.
+E = Evidence
+Provide evidence to support your point and the theme of the answer. Make the evidence specific, eg use key terms, dates and names. Be precise with the facts – don’t generalise.
+E = Explain
+Interpret the evidence and show how it agrees or disagrees with the question theme.
+L = Link
+When providing the link sentence at the end of your paragraph you are not only linking back to the rest of the paragraph and the main idea but you are also allowing for a transition to the next topic or paragraph.
+
