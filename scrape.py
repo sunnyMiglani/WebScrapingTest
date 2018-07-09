@@ -85,9 +85,11 @@ def goThroughListOfURLs():
         if(line[-1] == "\n"):
             line = line[:-1]; # This is basically removing the newline at the end of the line! 
         index +=1;
-        thisOutput = runCrawler(line, index);
-        with open("urlIndex:{0}.txt".format(str(index)), "w+", encoding="utf-8") as f:
-            f.write("%s\n" % thisOutput);
+        thisOutput = runCrawler(line, index); # with open("urlIndex:{0}.txt".format(str(index)), "w+", encoding="utf-8") as f:
+        print(thisOutput);
+
+        # with open("urlIndex:{0}.txt".format(str(index)), "w+", encoding="utf-8") as f:
+        #     f.write("%s\n" % thisOutput);
 
     ## Rewriting list of urls to keep a document of all pages scraped!
     with open("urlForGermany.txt", "w+") as f:
