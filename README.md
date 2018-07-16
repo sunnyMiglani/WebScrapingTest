@@ -1,6 +1,15 @@
 # WebScrapingTest
 Test Repository to learn web scraping
 
+### About:
+
+The repository was made to learn simple web scraping, specifically parsing a page and some related pages.
+The BBC was chosen as it open access to everyone and easy to access.
+
+The information from this project was also used in [another project](https://github.com/sunnyMiglani/AlexaSpeakingTest). 
+
+
+
 # Flow of Program:
 
 Quite simple flow, to start off add some urls in `url.txt` and the program will follow each link through the program
@@ -40,3 +49,8 @@ To keep this order, a sublist is used and the smaller links of `/revision/../` a
 
 Simply run **python 3** either using the `run.sh` or typing `python scrape.py > output.txt`
 
+## Bugs / Extensions:
+
+1. Extension: Add the system of checking for `ul` and `li` items, that is currently ignored. The reason this is not implemented yet is a way to keep track of which `<p>` tag does the `ul` item follow, so as to not lose context on the points. A possible solution would involve removing the `getAllPTags` system, and instead parse through the program with a state keeping track of where the `ul` / `li` tags go.
+
+2. Extension: BBC has at each image, an accessible description of the image that should be scraped as well, to keep context of the content again.
